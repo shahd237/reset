@@ -4,47 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>إعادة تعيين كلمة المرور</title>
-   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="index.css">
 </head>
+
 <body>
 
 <div class="container">
 
   <div class="card">
 
-    <div class="icon-circle">
-      <!-- قفل -->
-      <svg viewBox="0 0 24 24">
-        <path d="M7 11V8a5 5 0 0 1 10 0v3"/>
-        <rect x="5" y="11" width="14" height="10" rx="2"/>
-      </svg>
-    </div>
-
     <h2>إعادة تعيين كلمة المرور</h2>
 
-    <p class="subtitle">
-      أدخل كلمة المرور الجديدة لتأمين حسابك
-    </p>
-
     <div class="input-box">
-      <span class="icon">
-        <!-- كلمة مرور -->
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/>
-        </svg>
-      </span>
       <input type="password" placeholder="كلمة المرور الجديدة" id="newPassword">
     </div>
 
     <div class="input-box">
-      <span class="icon">
-        <!-- تأكيد -->
-        <svg viewBox="0 0 24 24">
-          <path d="M20 6L9 17l-5-5"/>
-        </svg>
-      </span>
-      <input type="password" placeholder="تأكيد كلمة المرور" id="ConfirmPassword">
+      <input type="password" placeholder="تأكيد كلمة المرور" id="confirmPassword">
     </div>
 
     <button class="btn" onclick="resetPassword()">
@@ -54,13 +30,12 @@
   </div>
 
 </div>
-<script>
 
-let resetToken = ""; // لو عندك توكن من backend
+<script>
 
 async function resetPassword() {
 
-  // 🔥 جلب التوكن من الرابط
+  // 🔥 قراءة التوكن من الرابط
   const params = new URLSearchParams(window.location.search);
   const token = params.get("token");
 
@@ -97,23 +72,22 @@ async function resetPassword() {
     });
 
     const result = await response.text();
-    console.log("📥 Response:", result);
+    console.log("Response:", result);
 
     if (response.ok) {
       alert("تم تغيير كلمة المرور ✔️");
+      window.location.href = "login.html"; // اختياري
     } else {
-      alert(result); // هيعرض سبب الخطأ من السيرفر
+      alert(result);
     }
 
   } catch (error) {
     console.error(error);
     alert("حدث خطأ في الاتصال بالسيرفر ❌");
   }
-
-  console.log("📥 Token:", token);
-  console.log("📥 New Password:", newPassword);
-  console.log("📥 Confirm Password:", confirmPassword);
 }
+
 </script>
+
 </body>
 </html>
